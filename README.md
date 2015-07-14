@@ -15,4 +15,4 @@ Inspired by Unity's [`Input.touches`](http://docs.unity3d.com/ScriptReference/In
 ## Examples
 
 * [Immediate using state](http://digitarald.github.io/touch-input/examples/immediate/) – State-based renderer using 2D Canvas
-* [DOM based using events](http://digitarald.github.io/touch-input/examples/immidiate/) – State-based renderer using 2D Canvas
+* [DOM based using events](http://digitarald.github.io/touch-input/examples/events/) – State-based renderer using 2D Canvas
