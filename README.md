@@ -3,7 +3,7 @@
 [![NPM version](http://img.shields.io/npm/v/touch-input.svg?style=flat)](https://www.npmjs.org/package/touch-input)
 [![Dependency Status](http://img.shields.io/gemnasium/digitarald/touch-input.svg?style=flat)](https://gemnasium.com/digitarald/touch-input)
 
-Gives you the status of all touches during last frame. Each `Touch` entry represents a status of a finger touching the screen. Touch events are collected between frames and fire custom events once on `requestAnimationFrame`.
+Gives you the status of all touches during the last frame. Each `Touch` entry represents a status of a finger touching the screen. Touch events are collected between frames and fire custom events once on `requestAnimationFrame`.
 
 Inspired by Unity's [`Input.touches`](http://docs.unity3d.com/ScriptReference/Input-touches.html).
 
@@ -15,4 +15,4 @@ Inspired by Unity's [`Input.touches`](http://docs.unity3d.com/ScriptReference/In
 ## Examples
 
 * [Immediate using state](http://digitarald.github.io/touch-input/examples/immediate/) – State-based renderer using 2D Canvas
-* [DOM based using events](http://digitarald.github.io/touch-input/examples/events/) – State-based renderer using 2D Canvas
+* [DOM-based using events](http://digitarald.github.io/touch-input/examples/events/) – DOM-based renderer using 2D Canvas
