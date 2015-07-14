@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <title>Immediate render example - touch-input.js</title>
     <style media="screen">
       html, body, canvas {
@@ -12,14 +13,9 @@
         overflow: hidden;
       }
       body {
+        user-select: none;
         -moz-user-select: none;
         -webkit-user-select: none;
-      }
-      canvas {
-        image-rendering: crisp-edges;
-        image-rendering: -moz-crisp-edges;
-        image-rendering: -webkit-optimize-contrast;
-        -ms-interpolation-mode: nearest-neighbor;
       }
     </style>
   </head>

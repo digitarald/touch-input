@@ -32,7 +32,9 @@ window.requestAnimationFrame(function tick() {
       context.moveTo(touch.previousPosition[0], touch.previousPosition[1]);
       touch.positions.forEach(function(between) {
         context.lineTo(between[0], between[1]);
-      })
+        context.arc(between[0], between[1], 3, 0, Math.PI * 2, true);
+        context.moveTo(between[0], between[1]);
+      });
       context.closePath();
       context.stroke();
     }

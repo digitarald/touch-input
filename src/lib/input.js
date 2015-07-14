@@ -18,10 +18,11 @@ const EVENTS = Object.keys(EVENT_MAP);
 class Input extends EventEmitter {
   constructor() {
     super();
-    this.touches = new Map();
+    this.touches = new Set();
+    this.actives = new Map();
     this.tickBound = this.tick.bind(this);
     this.tickInterval = 0;
-    this.touchesPool = [];
+    this.pooledTouches = [];
   }
 
   attach() {
@@ -49,18 +50,21 @@ class Input extends EventEmitter {
     for (let i = 0, l = touches.length; i < l; i++) {
       const touch = touches[i];
       if (method === 'start') {
-        const state = this.touchesPool.pop() || new Touch(this);
+        const state = this.pooledTouches.pop() || new Touch(this);
         state.fromTouch(touch);
-        this.touches.set(state.id, state);
-        return;
+        this.actives.set(state.id, state);
+        this.touches.add(state);
+        continue;
       }
-      const state = this.touches.get(touch.identifier || 0);
-      if (!state) {
-        return;
+      const id = touch.identifier || 0;
+      if (!this.actives.has(id)) {
+        continue;
       }
+      const state = this.actives.get(id);
       if (method === 'end') {
         state.end();
-        return;
+        this.actives.delete(state.id);
+        continue;
       }
       state.move(touch);
     }
@@ -71,8 +75,8 @@ class Input extends EventEmitter {
     this.touches.forEach((touch) => {
       if (touch.isFinal) {
         touch.delete();
-        this.touches.delete(touch.id);
-        this.touchesPool.push(touch);
+        this.touches.delete(touch);
+        this.pooledTouches.push(touch);
         return;
       }
       touch.tick();

@@ -316,10 +316,11 @@ var Input = (function (_EventEmitter) {
     _classCallCheck(this, Input);
 
     _EventEmitter.call(this);
-    this.touches = new Map();
+    this.touches = new Set();
+    this.actives = new Map();
     this.tickBound = this.tick.bind(this);
     this.tickInterval = 0;
-    this.touchesPool = [];
+    this.pooledTouches = [];
   }
 
   Input.prototype.attach = function attach() {
@@ -355,18 +356,21 @@ var Input = (function (_EventEmitter) {
     for (var i = 0, l = touches.length; i < l; i++) {
       var touch = touches[i];
       if (method === 'start') {
-        var _state = this.touchesPool.pop() || new _touchJs2['default'](this);
+        var _state = this.pooledTouches.pop() || new _touchJs2['default'](this);
         _state.fromTouch(touch);
-        this.touches.set(_state.id, _state);
-        return;
+        this.actives.set(_state.id, _state);
+        this.touches.add(_state);
+        continue;
       }
-      var state = this.touches.get(touch.identifier || 0);
-      if (!state) {
-        return;
+      var id = touch.identifier || 0;
+      if (!this.actives.has(id)) {
+        continue;
       }
+      var state = this.actives.get(id);
       if (method === 'end') {
         state.end();
-        return;
+        this.actives['delete'](state.id);
+        continue;
       }
       state.move(touch);
     }
@@ -379,8 +383,8 @@ var Input = (function (_EventEmitter) {
     this.touches.forEach(function (touch) {
       if (touch.isFinal) {
         touch['delete']();
-        _this3.touches['delete'](touch.id);
-        _this3.touchesPool.push(touch);
+        _this3.touches['delete'](touch);
+        _this3.pooledTouches.push(touch);
         return;
       }
       touch.tick();
