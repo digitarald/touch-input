@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "author": "Harald Kirschner <npm@digitarald.com> (http://digitarald.de/)",
   "description": "State-based touch input manager for games and high-fidelity interfaces",
-  "main": "dist/input-state.js",
+  "main": "dist/touch-input.js",
   "scripts": {
     "start": "npm run build && npm run watch",
     "build": "mkdir -p dist && browserify src/index.js --standalone touchInput -t babelify -o dist/touch-input.js",
